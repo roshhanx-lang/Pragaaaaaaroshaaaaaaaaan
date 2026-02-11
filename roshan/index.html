@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Proposal ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+overflow:hidden;
+}
+
+.page{
+height:100vh;
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+position:absolute;
+}
+
+.gifts{display:flex;gap:25px;font-size:60px;cursor:pointer;}
+
+video,img{
+width:90%;
+max-width:420px;
+border-radius:15px;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+border-radius:12px;
+border:none;
+margin:10px;
+cursor:pointer;
+}
+
+#lovePage{
+display:none;
+background:linear-gradient(#ff4d6d,#ff99ac);
+}
+
+#yes{background:white;color:#ff4d6d;}
+#no{background:gray;color:white;position:absolute;}
+
+.heart{
+position:fixed;
+bottom:-20px;
+animation:floatUp 5s linear infinite;
+}
+
+.firework{
+position:fixed;
+font-size:30px;
+animation:boom 1.5s ease-out forwards;
+}
+
+@keyframes floatUp{
+from{transform:translateY(0);opacity:1;}
+to{transform:translateY(-100vh);opacity:0;}
+}
+
+@keyframes boom{
+0%{transform:scale(0);opacity:1;}
+100%{transform:scale(3);opacity:0;}
+}
+
+.ring{
+font-size:80px;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+<audio id="bgm" autoplay loop muted style="display:none;">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Gift Page -->
+<div class="page" id="giftPage">
+<h2>Open all gifts 🎁</h2>
+<div class="gifts">
+<div onclick="openGift(1)">🎁</div>
+<div onclick="openGift(2)">🎁</div>
+<div onclick="openGift(3)">🎁</div>
+</div>
+</div>
+
+<!-- Media Page -->
+<div class="page" id="mediaPage" style="display:none;"></div>
+
+<!-- Slideshow -->
+<div class="page" id="slidePage" style="display:none;">
+<img id="slideImg">
+<p>Our Memories 🤎</p>
+</div>
+
+<!-- Countdown -->
+<div class="page" id="countPage" style="display:none;">
+<h1 id="count">3</h1>
+<p>Something special coming 🫠😚</p> 
+</div>
+
+<!-- Love Page -->
+<div class="page" id="lovePage">
+<h1 id="typeText"></h1>
+<button id="yes" onclick="yesClicked()">Yes 🤎😭</button>
+<button id="no" onmouseover="moveNo()">No 🙈</button>
+</div>
+<audio id="bgm" autoplay loop muted style="display:none;">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+let opened=0;
+
+/* Gift open */
+function openGift(num){
+mediaPage.style.display="flex";
+giftPage.style.display="none";
+
+if(num==1){
+mediaPage.innerHTML = `
+  <video controls autoplay muted style="width:100%; max-width:400px;">
+      <source src="video1.mp4" type="video/mp4">
+  </video>
+  <p onclick="back()">Tap to go back</p>
+`;
+}
+if(num==2){
+mediaPage.innerHTML=`<video controls autoplay > <source src="video2.mp4" type="video/mp4"></video>
+<p onclick="back()">Tap to go back</p>`;
+}
+if(num==3){
+mediaPage.innerHTML=`<video controls autoplay src="video3.mp4"></video>
+<p onclick="back()">Tap to go back</p>`;
+}
+opened++;
+}
+
+function back(){
+mediaPage.style.display="none";
+if(opened>=3) startSlideshow();
+else giftPage.style.display="flex";
+}
+
+/* Slideshow */
+let photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
+let i=0;
+
+function startSlideshow(){
+slidePage.style.display="flex";
+slideImg.src=photos[0];
+
+let slide=setInterval(()=>{
+i++;
+if(i>=photos.length){
+clearInterval(slide);
+slidePage.style.display="none";
+startCountdown();
+}else{
+slideImg.src=photos[i];
+}
+},2000);
+}
+
+/* Countdown */
+function startCountdown(){
+countPage.style.display="flex";
+let c=3;
+
+let timer=setInterval(()=>{
+c--;
+count.innerText=c;
+if(c==0){
+clearInterval(timer);
+countPage.style.display="none";
+showLovePage();
+}
+},1000);
+}
+
+/* Typing proposal */
+function showLovePage(){
+lovePage.style.display="flex";
+let text="Will you be mine forever? 💍";
+let j=0;
+
+let typing=setInterval(()=>{
+typeText.innerHTML+=text[j];
+j++;
+if(j>=text.length) clearInterval(typing);
+},60);
+}
+
+/* Escaping NO button */
+function moveNo(){
+const btn=document.getElementById("no");
+btn.style.transform=`translate(${Math.random()*300-150}px,
+${Math.random()*300-150}px)`;
+}
+
+/* Proposal success */
+function yesClicked(){
+lovePage.innerHTML=`
+<div class="ring">💍</div>
+<h1>Thangaaaaamailuuuuuuuuuuuuu Said YES ❤️</h1>
+<p> My Homeeeeey😭🎀, Nengaaaa ena life la kedacahathuku naaa rombaa kuduthu vechirukanum madam jiiii it feels like the most beautiful blessing I never knew I needed.Every day ungalaaaa pakapothu it brings new happiness,new memories,and new reasons to smile. In your presence, even ordinary moments turn into something special,and the worries of the world seem smaller when I hear your voice or see your smile🫠🧿.You are the person who understands me without explanation, supports me without conditions,and loves me in ways words sometimes fail to describe. I’m grateful for every laugh we share,every small fight (nd biggggggggggg fights😂😚)that makes us stronger, and every dream we plan together for the future(Boyyyyy babyyyyyy ah okayyyy dii mailuuuuuu).No matter how life changes or where time takes us, one thing I promise is to stand by you, respect you, and cherish you always.Nenga ena girlfriend mattum illlaaaa; you are my comfort, my happiness, my motivation, and the most precious part of my life.With you,love feels simple, real, and forever worth it😚💗Loveeeeeeeeyouuuuusooooomuchhholicccccccc pragaaaaaaaaaaaa epothum evolo sandaaaa pottalum enaaanalum😭🖖🏻 I stand with youuuu Pragaaaaaaaaaa🤌🏻🌝 Happpppppyyyyyy valentine's dayyyyyy pragaaaa thanagaaaaamailuuuuuuuuu</p>`;
+startFireworks();
+}
+
+/* Fireworks */
+function startFireworks(){
+setInterval(()=>{
+let f=document.createElement("div");
+f.className="firework";
+f.innerHTML="✨";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*80+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1500);
+},300);
+}
+
+/* Heart rain */
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="🤎";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=Math.random()*20+20+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},400);
+document.addEventListener("click", () => {
+    const bgm = document.getElementById("bgm");
+    bgm.muted = false;
+}, { once: true });
+</script>
+
+</body>
+</html>
